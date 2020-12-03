@@ -264,7 +264,8 @@ DartIsolate::DartIsolate(const Settings& settings,
                   settings.log_tag,
                   settings.unhandled_exception_callback,
                   DartVMRef::GetIsolateNameServer(),
-                  is_root_isolate),
+                  is_root_isolate,
+                  settings.enable_skparagraph),
       may_insecurely_connect_to_all_domains_(
           settings.may_insecurely_connect_to_all_domains),
       domain_network_policy_(settings.domain_network_policy) {

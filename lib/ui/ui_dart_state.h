@@ -74,6 +74,8 @@ class UIDartState : public tonic::DartState {
   void ReportUnhandledException(const std::string& error,
                                 const std::string& stack_trace);
 
+  bool enable_skparagraph() const;
+
   template <class T>
   static flutter::SkiaGPUObject<T> CreateGPUObject(sk_sp<T> object) {
     if (!object) {
@@ -99,7 +101,8 @@ class UIDartState : public tonic::DartState {
               std::string logger_prefix,
               UnhandledExceptionCallback unhandled_exception_callback,
               std::shared_ptr<IsolateNameServer> isolate_name_server,
-              bool is_root_isolate_);
+              bool is_root_isolate_,
+              bool enable_skparagraph);
 
   ~UIDartState() override;
 
@@ -131,6 +134,7 @@ class UIDartState : public tonic::DartState {
   tonic::DartMicrotaskQueue microtask_queue_;
   UnhandledExceptionCallback unhandled_exception_callback_;
   const std::shared_ptr<IsolateNameServer> isolate_name_server_;
+  const bool enable_skparagraph_;
 
   void AddOrRemoveTaskObserver(bool add);
 };

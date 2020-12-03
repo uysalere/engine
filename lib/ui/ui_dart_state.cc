@@ -27,7 +27,8 @@ UIDartState::UIDartState(
     std::string logger_prefix,
     UnhandledExceptionCallback unhandled_exception_callback,
     std::shared_ptr<IsolateNameServer> isolate_name_server,
-    bool is_root_isolate)
+    bool is_root_isolate,
+    bool enable_skparagraph)
     : task_runners_(std::move(task_runners)),
       add_callback_(std::move(add_callback)),
       remove_callback_(std::move(remove_callback)),
@@ -41,7 +42,8 @@ UIDartState::UIDartState(
       logger_prefix_(std::move(logger_prefix)),
       is_root_isolate_(is_root_isolate),
       unhandled_exception_callback_(unhandled_exception_callback),
-      isolate_name_server_(std::move(isolate_name_server)) {
+      isolate_name_server_(std::move(isolate_name_server)),
+      enable_skparagraph_(enable_skparagraph) {
   AddOrRemoveTaskObserver(true /* add */);
 }
 
@@ -176,6 +178,10 @@ void UIDartState::ReportUnhandledException(const std::string& error,
   // just log the exception.
   FML_LOG(ERROR) << "Unhandled Exception: " << error << std::endl
                  << stack_trace;
+}
+
+bool UIDartState::enable_skparagraph() const {
+  return enable_skparagraph_;
 }
 
 }  // namespace flutter
